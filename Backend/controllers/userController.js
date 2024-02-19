@@ -31,10 +31,11 @@ const registerUser = asyncHandler( async (req, res) => {
         password:hashedPassword
     })
     if (user){
-        res.status(200).json({
+        res.status(201).json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     }
     else{
@@ -54,7 +55,8 @@ const loginUser = asyncHandler( async (req, res) => {
         res.json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     }
     else{
@@ -64,14 +66,27 @@ const loginUser = asyncHandler( async (req, res) => {
 })
 // @desc   Get a User data 
 // @route GET / api/login
-// @access public
+// @access private
 const GetUser = asyncHandler( async (req, res) => {
-    res.json({ 
-        message:" user data displayed "
+    const{ _id, name, email } = await User.findById( req.user.id )
+
+    res.status(200).json({
+        id: _id,
+        name,
+        email,
     })
 })
+
+
+// generate a token(JWT token)
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET,{
+        expiresIn: '30d'
+    })
+}
 module.exports = {
     registerUser,
     loginUser,
-    GetUser,
+    GetUser
 }
