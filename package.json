@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend"
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "MIT License",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "react-router-dom": "^6.22.1"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.3"
   }
 }

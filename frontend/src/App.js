@@ -3,6 +3,8 @@ import Dashboard from './pages/dashboard'
 import Login from './pages/login'
 import Register from './pages/register'
 import Header from "./components/Header"
+import { ToastContainer } from "react-toastify"
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    <ToastContainer/>
     </>
   );
 }
