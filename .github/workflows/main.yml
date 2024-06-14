@@ -18,10 +18,10 @@ jobs:
           echo "Checking for changes in directory..."
           if [ $(git rev-list --count HEAD) -eq 1 ]; then
             echo "Only one commit found, checking changes in HEAD..."
-            changes=$(git show --name-only --diff-filter=M HEAD | grep 'Backend/config/')
+            changes=$(git show --name-only --diff-filter=M HEAD | grep -q '^Backend/config/')
           else
             echo "Multiple commits found, checking changes between HEAD~1 and HEAD..."
-            changes=$(git diff --name-only --diff-filter=M HEAD~1 HEAD | grep 'Backend/config/')
+            changes=$(git diff --name-only --diff-filter=M HEAD~1 HEAD | grep -q '^Backend/config/')
           fi
           
           if [ -n "$changes" ]; then
