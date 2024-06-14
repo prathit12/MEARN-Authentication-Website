@@ -8,3 +8,5 @@ export const store = configureStore({
     goals: goalReducer,
   },
 })
+
+//console.log
